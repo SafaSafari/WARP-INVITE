@@ -2,6 +2,8 @@
 
 After updating the Google site, the CURL method failed. I used the file_get_contents method to send the request.
 
+Whenever CURL adds session_ticket functionality, we return to CURL
+
 with this source you can get WARP+ Charge
 
 just replace your WARP id with $id
