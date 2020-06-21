@@ -4,13 +4,21 @@ $data = json_encode([
     'warp_enabled' => true,
     'referrer' => $id,
 ]);
-$opts = array('http' =>
-    array(
-        'method'  => 'POST',
-        'header'  => ['Content-Type: application/json', 'User-Agent: okhttp/3.12.1'],
-        'content' => $data
-    )
+$header = array(
+    'Content-Type: application/json',
+    'User-Agent: okhttp/3.12.1',
 );
-
-$context  = stream_context_create($opts);
-file_get_contents('https://api.cloudflareclient.com/v0a977/reg', false, $context);
+$opts = array('http' =>
+array(
+    'method' => 'POST',
+    'header' => $header,
+    'content' => $data
+));
+$all = explode("\n", file_get_contents('proxy.txt'));
+foreach ($all as $t => $proxy) {
+    $opts['http']['proxy'] = 'tcp://' . trim($proxy);
+    $context  = stream_context_create($opts);
+    exec('title ' . $t . ' FROM ' . $sizeof($all));
+    for ($i = 0; $i < 2; $i++)
+        file_get_contents('https://api.cloudflareclient.com/v0a977/reg', false, $context);
+}
